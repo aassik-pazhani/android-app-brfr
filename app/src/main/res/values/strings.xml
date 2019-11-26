@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">FinalProject</string>
+    <string name="you_wake_up_with_a_headache_and_no_recollection_of_who_you_are_what_you_do_or_where_you_are">You wake up with a headache and no recollection of who you are, what you do, or where you are.</string>
+    <string name="you_ask_someone_where_you_are_and_they_respond_with_quot_you_re_in_the_union_quot">You ask someone where you are, and they respond with \"you\'re in the Union.\"</string>
+    <string name="your_action_words_are">Your action words are:</string>
+    <string name="go">GO</string>
+    <string name="quit">QUIT</string>
+    <string name="help">HELP</string>
+    <string name="south">SOUTH</string>
+    <string name="east">EAST</string>
+    <string name="west">WEST</string>
+    <string name="north">NORTH</string>
 </resources>
