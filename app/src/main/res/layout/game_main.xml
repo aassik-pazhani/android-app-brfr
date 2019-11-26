@@ -10,7 +10,7 @@
         android:id="@+id/instruction1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="casual"
+        android:fontFamily="sans-serif-smallcaps"
         android:text="@string/you_wake_up_with_a_headache_and_no_recollection_of_who_you_are_what_you_do_or_where_you_are"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:bufferType="normal"
-        android:fontFamily="@font/amatica_sc_bold"
+        android:fontFamily="sans-serif-smallcaps"
         android:text="@string/you_ask_someone_where_you_are_and_they_respond_with_quot_you_re_in_the_union_quot"
         android:textColorLink="#C20013"
         android:textSize="18sp"
@@ -55,10 +55,10 @@
         android:text="@string/quit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/go"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.526" />
 
     <Button
         android:id="@+id/help"

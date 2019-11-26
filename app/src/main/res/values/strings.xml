@@ -10,4 +10,13 @@
     <string name="east">EAST</string>
     <string name="west">WEST</string>
     <string name="north">NORTH</string>
+    <string name="questions">QUESTIONS</string>
+    <string name="a">A</string>
+    <string name="b">B</string>
+    <string name="c">C</string>
+    <string name="option_d">OPTION D</string>
+    <string name="d">D</string>
+    <string name="option_c">OPTION C</string>
+    <string name="option_b">OPTION B</string>
+    <string name="option_a">OPTION A</string>
 </resources>

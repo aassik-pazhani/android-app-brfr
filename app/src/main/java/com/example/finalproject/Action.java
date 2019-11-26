@@ -25,5 +25,7 @@ public class Action {
     public boolean hasObject() {
         return (object != null);
     }
+
 }
+
 

@@ -2,6 +2,7 @@ package com.example.finalproject;
 //import androidx.appcompat.app.AppCompatActivity;
 
 //import android.content.Intent;
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
 //import android.widget.Button;
@@ -10,11 +11,23 @@ import android.os.Bundle;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.textclassifier.ConversationActions;
 import android.widget.Button;
+import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONObject;
+
+import java.util.List;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.android.volley.Request;
+
 public class MainGame extends AppCompatActivity {
+
+    List<Location> visited = new ArrayList<>();
 
     private Location currentLocation;
     private ActionWords actions;
@@ -136,6 +149,12 @@ public class MainGame extends AppCompatActivity {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         });
+        if (!visited.contains(currentLocation)) {
+            String url = "https://opentdb.com/api.php?amount=15&category=18&difficulty=medium&type=multiple";
+            JsonArrayRequest request = new JsonArrayRequest(Request.method)
+
+        }
+
 
         if (!currentLocation.getExits().contains("north")) {
             north.setVisibility(View.GONE);
@@ -161,11 +180,12 @@ public class MainGame extends AppCompatActivity {
         east.setOnClickListener(view -> {
             goTo("east");
         });
-        
+
         return false;
     }
 
     public void goTo(String direction) {
+
         //Leaving current location to go to another location
         Location nextLocation = currentLocation.getExit(direction);
         if (nextLocation == null) {
