@@ -199,4 +199,18 @@
         app:layout_constraintStart_toEndOf="@+id/optionD"
         app:layout_constraintTop_toBottomOf="@+id/answerC"
         app:layout_constraintVertical_bias="0.822" />
+
+    <ImageButton
+        android:id="@+id/item"
+        android:layout_width="47dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="77dp"
+        android:layout_marginEnd="297dp"
+        android:layout_marginBottom="245dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/west"
+        app:srcCompat="@android:color/background_dark" />
 </androidx.constraintlayout.widget.ConstraintLayout>
