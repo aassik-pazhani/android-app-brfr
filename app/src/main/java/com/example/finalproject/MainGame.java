@@ -32,8 +32,10 @@ public class MainGame extends AppCompatActivity {
     List<Location> visited = new ArrayList<>();
 
     private Location currentLocation;
-    private ActionWords actions;
-    private Action action;
+    /*private ActionWords actions;
+    private Action action;*/
+    private ArrayList<Item> inventory = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

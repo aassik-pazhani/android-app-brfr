@@ -1,4 +1,5 @@
 package com.example.finalproject;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -6,6 +7,8 @@ import java.util.Iterator;
 public class Location {
     private String description;
     private HashMap roomExits;		//Like array, but stores "north" or "south" of a room as an exit.
+
+    ArrayList<Item> items = new ArrayList<Item>();
 
     public Location(String description) {
         this.description = description;
@@ -31,5 +34,12 @@ public class Location {
 
     public Location getExit(String direction) {
         return (Location)roomExits.get(direction);
+    }
+    public Item getItem(int index) {
+        return getItem(index);
+    }
+
+    public void setItem(Item newItem) {
+        items.add(newItem);
     }
 }
