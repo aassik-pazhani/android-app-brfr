@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 //Main class which initializes all other classes.
 
 public class MainGame {
@@ -5,6 +7,9 @@ public class MainGame {
 	private Location currentLocation;
 	private ActionWords actions;
 	private Action action;
+	Location union, mainQuad, ugl, ike, lar, par, chemAnnex, church, altgeld, engHall, loomis, grainger, siebel, northQuad, ece;
+	
+	ArrayList<Item> inventory = new ArrayList<Item>();
 	
 	public static void main(String[] args) {
 		 MainGame newGame = new MainGame();
@@ -12,11 +17,10 @@ public class MainGame {
 	}
 	
 	public MainGame() {
-		createRooms();
+		createLocations();
 	}
 	
-	private void createRooms() {
-		Location union, mainQuad, ugl, ike, lar, par, chemAnnex, church, altgeld, engHall, loomis, grainger, siebel, northQuad, ece;
+	private void createLocations() {
 		
 		//creating the rooms
 		union = new Location("inside the Illini Union. Students bustle about the tattered facility.");
@@ -84,46 +88,64 @@ public class MainGame {
 		northQuad.setExit("west", ece);
 		
 		ece.setExit("east", northQuad);
+		
+		//we start the room outside
+		currentLocation = union;
 	}
 	
 	public void play() {
 		//prints instructions for the game
-		System.out.println("You wake up with a headache and no recollection of who you are, what you do, or where you are.");
-		System.out.println("You ask someone where you are, and they respond with 'you're in the Union.'");
+		System.out.println("You recently forgot to do MP71.");
+		System.out.println("Your grade has dropped to an F.");
+		System.out.println("Task: Find the access code to Siebel's data center and change your grade to an A.");
 		System.out.println();
-		System.out.println("Your action words are: ");
-		actions.showActions();
+		System.out.println(currentLocation.getDescription());
+		//System.out.println("Your action words are: ");
+		//actions.showActions();
 		
 		boolean finished = false;
 		while (!finished) {
 			Action action = null;
 			finished = processAction(action);
 		}
-		System.out.println("ggwp.");
+		System.out.println("ty for playing. goodbye.");
 	}
 	
 	private boolean processAction(Action action) {
         boolean wantToQuit = false;
 
+//        if(action.hasAction()) {
+//            System.out.println("I don't know what you mean...");
+//            return false;
+//        }
+        
         if(action.hasAction()) {
-            System.out.println("I don't know what you mean...");
-            return false;
+        	System.out.println("I don't understand.");
+        	return false;
         }
-
-        String commandWord = action.getAction();
-        if (commandWord.equals("help")) {
+        
+        String actionWord = action.getAction();
+        if (actionWord.equals("help")) {
         	System.out.println();
             System.out.println("Your action words are: ");
-        }
-        else if (commandWord.equals("go")) {
+        } else if (actionWord.equals("go")) {
         	goTo(action);
-        }
-        else if (commandWord.equals("quit")) {
+        } else if (actionWord.equals("quit")) {
             wantToQuit = quit(action);
+        } else if (actionWord.equals("inventory")) {
+        	printInventory();
         }
         return wantToQuit;
 	}
 	
+	private void printInventory() {
+		String currentInv  = "";
+		for (int i = 0; i < inventory.size(); i++) {
+			currentInv = currentInv + inventory.get(i).getDescription() + " ";
+		}
+		System.out.println("Inventory: " + currentInv);
+	}
+
 	public void goTo(Action action) {
 		String direction = action.getObject();
 		//Leaving current location to go to another location

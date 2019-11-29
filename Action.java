@@ -7,9 +7,9 @@ public class Action {
 	private String action;
 	private String object;
 	
-	public Action(String action, String object) {
-		this.action = action;
-		this.object = object;
+	public Action(String actionWord, String objectWord) {
+		this.action = actionWord;
+		this.object = objectWord;
 	}
 	
 	public String getAction() {
@@ -20,6 +20,7 @@ public class Action {
 		return object;
 	}
 	
+	//checks if an action word exists ex: go, get, drop, etc.
 	public boolean hasAction() {
 		return (action == null);
 	}
