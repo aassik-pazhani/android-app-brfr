@@ -20,10 +20,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONObject;
 
 import java.util.List;
-import com.google.gson.JsonArray;
+
+/*import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.android.volley.Request;
+ */
+import com.android.volley;
 
 public class MainGame extends AppCompatActivity {
 
@@ -40,11 +42,16 @@ public class MainGame extends AppCompatActivity {
         //prints instructions for the game
         Button go = findViewById(R.id.go);
         Button quit = findViewById(R.id.quit);
+        Button inventory = findViewById(R.id.inventory);
         quit.setOnClickListener(view -> {
             setContentView(R.layout.activity_main);
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
+        });
+        inventory.setOnClickListener(view -> {
+            setContentView(R.layout.inventory);
+
         });
         go.setOnClickListener(view -> {
             gameplay();
