@@ -1,7 +1,7 @@
 public class ActionWords {
 	
 	private static final String actions[] = {
-			"go", "quit", "help"
+			"go", "quit", "help", "inventory"
 	};
 	
 	public ActionWords() {
@@ -26,3 +26,4 @@ public class ActionWords {
 		System.out.println();
 	}
 }
+  
