@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.textclassifier.ConversationActions;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -175,6 +176,11 @@ public class MainGame extends AppCompatActivity {
         TextView ansB = findViewById(R.id.answerB);
         TextView ansC = findViewById(R.id.answerC);
         TextView ansD = findViewById(R.id.answerD);
+        RadioButton optA =findViewById(R.id.optionA);
+        RadioButton optB =findViewById(R.id.optionB);
+        RadioButton optC =findViewById(R.id.optionC);
+        RadioButton optD =findViewById(R.id.optionD);
+        final String[] correct_answer = new String[1];
 
 
         quit.setOnClickListener(new View.OnClickListener() {
@@ -196,7 +202,7 @@ public class MainGame extends AppCompatActivity {
                                 JSONArray questions = response.getJSONArray(1);
                                 JSONObject oneQuestion = questions.getJSONObject(1);
                                 String q = oneQuestion.getString("question");
-                                String correct_answer = oneQuestion.getString("correct_answer");
+                                correct_answer[0] = oneQuestion.getString("correct_answer");
                                 JSONArray ic = oneQuestion.getJSONArray("incorrect_answers");
                                 List<String> ics = new ArrayList<>();
                                 for (int i = 0; i < ic.length(); i++) {
@@ -205,25 +211,25 @@ public class MainGame extends AppCompatActivity {
                                 question.setText(q);
                                 int i = rand.nextInt(4);
                                 switch (i) {
-                                    case 0: ansA.setText(correct_answer);
+                                    case 0: ansA.setText(correct_answer[0]);
                                             ansB.setText(ics.get(0));
                                             ansC.setText(ics.get(1));
                                             ansD.setText(ics.get(2));
                                             break;
                                     case 1: ansA.setText(ics.get(0));
-                                            ansB.setText(correct_answer);
+                                            ansB.setText(correct_answer[0]);
                                             ansC.setText(ics.get(1));
                                             ansD.setText(ics.get(2));
                                             break;
                                     case 2: ansA.setText(ics.get(0));
                                             ansB.setText(ics.get(1));
-                                            ansC.setText(correct_answer);
+                                            ansC.setText(correct_answer[0]);
                                             ansD.setText(ics.get(2));
                                             break;
                                     case 3: ansA.setText(ics.get(2));
                                             ansB.setText(ics.get(0));
                                             ansC.setText(ics.get(1));
-                                            ansD.setText(correct_answer);
+                                            ansD.setText(correct_answer[0]);
                                             break;
                                 }
                             } catch (JSONException error) {
@@ -239,8 +245,6 @@ public class MainGame extends AppCompatActivity {
                         }
                     });
         }
-
-
         if (!currentLocation.getExits().contains("north")) {
             north.setVisibility(View.GONE);
         }
@@ -253,18 +257,72 @@ public class MainGame extends AppCompatActivity {
         if (!currentLocation.getExits().contains("west")) {
             west.setVisibility(View.GONE);
         }
-        north.setOnClickListener(view -> {
-            goTo("north");
-        });
-        west.setOnClickListener(view -> {
-            goTo("west");
-        });
-        south.setOnClickListener(view -> {
-            goTo("south");
-        });
-        east.setOnClickListener(view -> {
-            goTo("east");
-        });
+        if (visited.contains(currentLocation)) {
+            question.setVisibility(View.GONE);
+            optA.setVisibility(View.GONE);
+            optB.setVisibility(View.GONE);
+            optC.setVisibility(View.GONE);
+            optD.setVisibility(View.GONE);
+            ansA.setVisibility(View.GONE);
+            ansB.setVisibility(View.GONE);
+            ansC.setVisibility(View.GONE);
+            ansD.setVisibility(View.GONE);
+            north.setOnClickListener(view -> {
+                goTo("north");
+            });
+            west.setOnClickListener(view -> {
+                goTo("west");
+            });
+            south.setOnClickListener(view -> {
+                goTo("south");
+            });
+            east.setOnClickListener(view -> {
+                goTo("east");
+            });
+        } else {
+
+            if (visited.contains(currentLocation.getExit("north"))) {
+                north.setOnClickListener(view -> {
+                    goTo("north");
+                });
+            }
+            if (visited.contains(currentLocation.getExit("south"))) {
+                south.setOnClickListener(view -> {
+                    goTo("south");
+                });
+            }
+            if (visited.contains(currentLocation.getExit("east"))) {
+                east.setOnClickListener(view -> {
+                    goTo("east");
+                });
+            }
+            if (visited.contains(currentLocation.getExit("west"))) {
+                west.setOnClickListener(view -> {
+                    goTo("west");
+                });
+            }
+            if (optA.isChecked()) {
+                if (ansA.getText().equals(correct_answer[0])) {
+                    visited.add(currentLocation);
+                }
+            }
+            if (optB.isChecked()) {
+                if (ansB.getText().equals(correct_answer[0])) {
+                    visited.add(currentLocation);
+                }
+            }
+            if (optC.isChecked()) {
+                if (ansC.getText().equals(correct_answer[0])) {
+                    visited.add(currentLocation);
+                }
+            }
+            if (optD.isChecked()) {
+                if (ansD.getText().equals(correct_answer[0])) {
+                    visited.add(currentLocation);
+                }
+            }
+        }
+
 
         return toReturn;
     }
