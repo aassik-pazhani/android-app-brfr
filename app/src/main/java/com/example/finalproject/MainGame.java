@@ -2,16 +2,13 @@ package com.example.finalproject;
 //import androidx.appcompat.app.AppCompatActivity;
 
 //import android.content.Intent;
-import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
 //import android.widget.Button;
 
 //Main class which initializes all other classes.
 
-import android.os.Bundle;
 import android.view.View;
-import android.view.textclassifier.ConversationActions;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -23,11 +20,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONString;
-import org.json.JSONStringer;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /*import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -49,7 +45,6 @@ public class MainGame extends AppCompatActivity {
     /*private ActionWords actions;
     private Action action;*/
     private ArrayList<Item> inventory = new ArrayList<>();
-    private RequestQueue mQueue;
 
 
     @Override
@@ -61,14 +56,14 @@ public class MainGame extends AppCompatActivity {
         Button quit = findViewById(R.id.quit);
         Button inventoryButton = findViewById(R.id.inventory);
         quit.setOnClickListener(view -> {
-            setContentView(R.layout.activity_main);
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
         });
         inventoryButton.setOnClickListener(view -> {
-            setContentView(R.layout.inventory);
-
+            Intent intent = new Intent(this, Inventory.class);
+            startActivity(intent);
+            finish();
         });
         go.setOnClickListener(view -> {
             gameplay();
@@ -162,13 +157,14 @@ public class MainGame extends AppCompatActivity {
     }
 
     private boolean processAction() {
-        setContentView(R.layout.room);
+        Intent p_intent = new Intent(this, Room.class);
+        startActivity(p_intent);
         Button north = findViewById(R.id.north);
         Button south = findViewById(R.id.south);
         Button east = findViewById(R.id.east);
         Button west = findViewById(R.id.west);
         Button quit = findViewById(R.id.quitbutton);
-        boolean toReturn = false;
+        AtomicBoolean toReturn = new AtomicBoolean(false);
         TextView question = findViewById(R.id.question);
         Random rand = new Random();
         TextView ansA = findViewById(R.id.answerA);
@@ -180,22 +176,27 @@ public class MainGame extends AppCompatActivity {
         RadioButton optC =findViewById(R.id.optionC);
         RadioButton optD =findViewById(R.id.optionD);
         final String[] correct_answer = new String[1];
-        Button inventorybutt = findViewById(R.id.inventorybutton);
+        Button inventory_butt = findViewById(R.id.inventorybutton);
 
-        inventorybutt.setOnClickListener(view -> {
-            setContentView(R.layout.inventory);
+        inventory_butt.setOnClickListener(view -> {
+            Intent intent = new Intent(this, Inventory.class);
+            startActivity(intent);
+            finish();
             Button backGame = findViewById(R.id.game);
             backGame.setOnClickListener(view1 -> {
-                setContentView(R.layout.room);
+                Intent intent1 = new Intent(this, Room.class);
+                startActivity(intent1);
+                finish();
             });
         });
 
 
         quit.setOnClickListener(view ->  {
-            setContentView(R.layout.activity_main);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            toReturn.set(true);
         });
-
-        mQueue = Volley.newRequestQueue(this);
         if (!currentLocation.getExits().contains("north")) {
             north.setVisibility(View.GONE);
         }
@@ -325,9 +326,8 @@ public class MainGame extends AppCompatActivity {
                 goTo("east");
             });
         }
-
-
-        return toReturn;
+        finish();
+        return toReturn.get();
     }
 
     public void goTo(String direction) {
