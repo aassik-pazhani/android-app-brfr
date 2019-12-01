@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import java.util.ArrayList;
 
@@ -39,9 +40,8 @@ import com.android.volley.toolbox.Volley;
 
 public class MainGame extends AppCompatActivity {
 
-    List<Location> visited = new ArrayList<>();
+    //List<Location> visited = new ArrayList<>();
 
-    private Location currentLocation;
     /*private ActionWords actions;
     private Action action;*/
     private ArrayList<Item> inventory = new ArrayList<>();
@@ -63,10 +63,11 @@ public class MainGame extends AppCompatActivity {
         inventoryButton.setOnClickListener(view -> {
             Intent intent = new Intent(this, Inventory.class);
             startActivity(intent);
-            finish();
         });
         go.setOnClickListener(view -> {
-            gameplay();
+            Intent intent = new Intent(this, Room.class);
+            startActivity(intent);
+            finish();
         });
 
         System.out.println("ggwp.");
@@ -74,7 +75,7 @@ public class MainGame extends AppCompatActivity {
 
 
 
-    MainGame() {
+    /*MainGame() {
         createRooms();
     }
 
@@ -147,16 +148,10 @@ public class MainGame extends AppCompatActivity {
         northQuad.setExit("west", ece);
 
         ece.setExit("east", northQuad);
-        currentLocation = union;
-    }
-    private void gameplay() {
-        boolean finished = false;
-        while (!finished) {
-            finished = processAction();
-        }
-    }
+    }*/
 
-    private boolean processAction() {
+
+    /*private boolean processAction() {
         Intent p_intent = new Intent(this, Room.class);
         startActivity(p_intent);
         Button north = findViewById(R.id.north);
@@ -181,13 +176,14 @@ public class MainGame extends AppCompatActivity {
         inventory_butt.setOnClickListener(view -> {
             Intent intent = new Intent(this, Inventory.class);
             startActivity(intent);
-            finish();
+            ViewFlipper
             Button backGame = findViewById(R.id.game);
             backGame.setOnClickListener(view1 -> {
                 Intent intent1 = new Intent(this, Room.class);
                 startActivity(intent1);
                 finish();
             });
+            finish();
         });
 
 
@@ -340,5 +336,5 @@ public class MainGame extends AppCompatActivity {
             currentLocation = nextLocation;
             System.out.println(currentLocation.getDescription());
         }
-    }
+    }*/
 }
