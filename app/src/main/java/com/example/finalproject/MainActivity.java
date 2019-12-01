@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,9 +16,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainGame.class);
 
         Button start = findViewById(R.id.startGame);
-        start.setOnClickListener(v -> {
-            startActivity(intent);
-            finish();
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(intent);
+                finish();
+            }
         });
     }
 }

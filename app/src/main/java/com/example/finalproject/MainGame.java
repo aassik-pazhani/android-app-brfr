@@ -25,8 +25,6 @@ public class MainGame extends AppCompatActivity {
         Button quit = findViewById(R.id.quit);
         Button inventoryButton = findViewById(R.id.inventory);
         quit.setOnClickListener(view -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
             finish();
         });
         inventoryButton.setOnClickListener(view -> {
