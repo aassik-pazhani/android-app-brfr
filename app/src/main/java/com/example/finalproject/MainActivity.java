@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Intent intent = new Intent(this, MainGame.class);
+        Intent intent = new Intent(this, MainGame.class);
 
         Button start = findViewById(R.id.startGame);
         start.setOnClickListener(v -> {
