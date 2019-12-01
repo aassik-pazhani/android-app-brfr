@@ -29,11 +29,11 @@ public class Room extends AppCompatActivity {
     private Location currentLocation;
     List<Location> visited = new ArrayList<>();
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
 
-    Room() {
-        createRooms();
-    }
-    private void createRooms() {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.room);
         Location union, mainQuad, ugl, ike, lar, par, chemAnnex, church, altgeld, engHall, loomis, grainger, siebel, northQuad, ece;
 
         //creating the rooms
@@ -103,13 +103,6 @@ public class Room extends AppCompatActivity {
 
         ece.setExit("east", northQuad);
         currentLocation = union;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.room);
         gameplay();
 
     }
