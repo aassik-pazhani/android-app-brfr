@@ -133,16 +133,19 @@ public class Room extends AppCompatActivity {
         RadioButton optD =findViewById(R.id.optionD);
         final String[] correct_answer = new String[1];
         Button inventory_butt = findViewById(R.id.inventorybutton);
+
         inventory_butt.setOnClickListener(view -> {
             Intent intent = new Intent(this, Inventory.class);
             startActivity(intent);
         });
+
         quit.setOnClickListener(view ->  {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
             toReturn.set(true);
         });
+
         if (!currentLocation.getExits().contains("north")) {
             north.setVisibility(View.GONE);
         }
@@ -177,25 +180,25 @@ public class Room extends AppCompatActivity {
                                 int i = rand.nextInt(4);
                                 switch (i) {
                                     case 0: ansA.setText(correct_answer[0]);
-                                        ansB.setText(ics.get(0));
-                                        ansC.setText(ics.get(1));
-                                        ansD.setText(ics.get(2));
-                                        break;
+                                            ansB.setText(ics.get(0));
+                                            ansC.setText(ics.get(1));
+                                            ansD.setText(ics.get(2));
+                                            break;
                                     case 1: ansA.setText(ics.get(0));
-                                        ansB.setText(correct_answer[0]);
-                                        ansC.setText(ics.get(1));
-                                        ansD.setText(ics.get(2));
-                                        break;
+                                            ansB.setText(correct_answer[0]);
+                                            ansC.setText(ics.get(1));
+                                            ansD.setText(ics.get(2));
+                                            break;
                                     case 2: ansA.setText(ics.get(0));
-                                        ansB.setText(ics.get(1));
-                                        ansC.setText(correct_answer[0]);
-                                        ansD.setText(ics.get(2));
-                                        break;
+                                            ansB.setText(ics.get(1));
+                                            ansC.setText(correct_answer[0]);
+                                            ansD.setText(ics.get(2));
+                                            break;
                                     case 3: ansA.setText(ics.get(2));
-                                        ansB.setText(ics.get(0));
-                                        ansC.setText(ics.get(1));
-                                        ansD.setText(correct_answer[0]);
-                                        break;
+                                            ansB.setText(ics.get(0));
+                                            ansC.setText(ics.get(1));
+                                            ansD.setText(correct_answer[0]);
+                                            break;
                                 }
                                 if (visited.contains(currentLocation.getExit("north"))) {
                                     north.setOnClickListener(view -> {
@@ -237,6 +240,7 @@ public class Room extends AppCompatActivity {
                                         visited.add(currentLocation);
                                     }
                                 }
+                                processAction();
                             } catch (JSONException error) {
                                 //response
                             }
@@ -272,7 +276,6 @@ public class Room extends AppCompatActivity {
                 goTo("east");
             });
         }
-        finish();
         return toReturn.get();
     }
     public void goTo(String direction) {
@@ -283,6 +286,7 @@ public class Room extends AppCompatActivity {
             System.out.println("Nothing to the " + direction + " of " + currentLocation + "!");
         } else {
             currentLocation = nextLocation;
+            processAction();
             System.out.println(currentLocation.getDescription());
         }
     }
