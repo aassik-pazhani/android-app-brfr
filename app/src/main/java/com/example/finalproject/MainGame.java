@@ -59,14 +59,14 @@ public class MainGame extends AppCompatActivity {
         //prints instructions for the game
         Button go = findViewById(R.id.go);
         Button quit = findViewById(R.id.quit);
-        Button inventory = findViewById(R.id.inventory);
+        Button inventoryButton = findViewById(R.id.inventory);
         quit.setOnClickListener(view -> {
             setContentView(R.layout.activity_main);
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
         });
-        inventory.setOnClickListener(view -> {
+        inventoryButton.setOnClickListener(view -> {
             setContentView(R.layout.inventory);
 
         });
@@ -77,12 +77,7 @@ public class MainGame extends AppCompatActivity {
         System.out.println("ggwp.");
     }
 
-    private void gameplay() {
-        boolean finished = false;
-        while (!finished) {
-            finished = processAction();
-        }
-    }
+
 
     MainGame() {
         createRooms();
@@ -159,8 +154,12 @@ public class MainGame extends AppCompatActivity {
         ece.setExit("east", northQuad);
         currentLocation = union;
     }
-
-
+    private void gameplay() {
+        boolean finished = false;
+        while (!finished) {
+            finished = processAction();
+        }
+    }
 
     private boolean processAction() {
         setContentView(R.layout.room);
@@ -181,15 +180,34 @@ public class MainGame extends AppCompatActivity {
         RadioButton optC =findViewById(R.id.optionC);
         RadioButton optD =findViewById(R.id.optionD);
         final String[] correct_answer = new String[1];
+        Button inventorybutt = findViewById(R.id.inventorybutton);
 
-
-        quit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // need to do something
-            }
+        inventorybutt.setOnClickListener(view -> {
+            setContentView(R.layout.inventory);
+            Button backGame = findViewById(R.id.game);
+            backGame.setOnClickListener(view1 -> {
+                setContentView(R.layout.room);
+            });
         });
+
+
+        quit.setOnClickListener(view ->  {
+            setContentView(R.layout.activity_main);
+        });
+
         mQueue = Volley.newRequestQueue(this);
+        if (!currentLocation.getExits().contains("north")) {
+            north.setVisibility(View.GONE);
+        }
+        if (!currentLocation.getExits().contains("east")) {
+            east.setVisibility(View.GONE);
+        }
+        if (!currentLocation.getExits().contains("south")) {
+            south.setVisibility(View.GONE);
+        }
+        if (!currentLocation.getExits().contains("west")) {
+            west.setVisibility(View.GONE);
+        }
 
         if (!visited.contains(currentLocation)) {
             String url = "https://opentdb.com/api.php?amount=15&category=18&difficulty=medium&type=multiple";
@@ -232,6 +250,46 @@ public class MainGame extends AppCompatActivity {
                                             ansD.setText(correct_answer[0]);
                                             break;
                                 }
+                                if (visited.contains(currentLocation.getExit("north"))) {
+                                    north.setOnClickListener(view -> {
+                                        goTo("north");
+                                    });
+                                }
+                                if (visited.contains(currentLocation.getExit("south"))) {
+                                    south.setOnClickListener(view -> {
+                                        goTo("south");
+                                    });
+                                }
+                                if (visited.contains(currentLocation.getExit("east"))) {
+                                    east.setOnClickListener(view -> {
+                                        goTo("east");
+                                    });
+                                }
+                                if (visited.contains(currentLocation.getExit("west"))) {
+                                    west.setOnClickListener(view -> {
+                                        goTo("west");
+                                    });
+                                }
+                                if (optA.isChecked()) {
+                                    if (ansA.getText().equals(correct_answer[0])) {
+                                        visited.add(currentLocation);
+                                    }
+                                }
+                                if (optB.isChecked()) {
+                                    if (ansB.getText().equals(correct_answer[0])) {
+                                        visited.add(currentLocation);
+                                    }
+                                }
+                                if (optC.isChecked()) {
+                                    if (ansC.getText().equals(correct_answer[0])) {
+                                        visited.add(currentLocation);
+                                    }
+                                }
+                                if (optD.isChecked()) {
+                                    if (ansD.getText().equals(correct_answer[0])) {
+                                        visited.add(currentLocation);
+                                    }
+                                }
                             } catch (JSONException error) {
                                 //response
                             }
@@ -244,20 +302,7 @@ public class MainGame extends AppCompatActivity {
 
                         }
                     });
-        }
-        if (!currentLocation.getExits().contains("north")) {
-            north.setVisibility(View.GONE);
-        }
-        if (!currentLocation.getExits().contains("east")) {
-            east.setVisibility(View.GONE);
-        }
-        if (!currentLocation.getExits().contains("south")) {
-            south.setVisibility(View.GONE);
-        }
-        if (!currentLocation.getExits().contains("west")) {
-            west.setVisibility(View.GONE);
-        }
-        if (visited.contains(currentLocation)) {
+        } else {
             question.setVisibility(View.GONE);
             optA.setVisibility(View.GONE);
             optB.setVisibility(View.GONE);
@@ -279,48 +324,6 @@ public class MainGame extends AppCompatActivity {
             east.setOnClickListener(view -> {
                 goTo("east");
             });
-        } else {
-
-            if (visited.contains(currentLocation.getExit("north"))) {
-                north.setOnClickListener(view -> {
-                    goTo("north");
-                });
-            }
-            if (visited.contains(currentLocation.getExit("south"))) {
-                south.setOnClickListener(view -> {
-                    goTo("south");
-                });
-            }
-            if (visited.contains(currentLocation.getExit("east"))) {
-                east.setOnClickListener(view -> {
-                    goTo("east");
-                });
-            }
-            if (visited.contains(currentLocation.getExit("west"))) {
-                west.setOnClickListener(view -> {
-                    goTo("west");
-                });
-            }
-            if (optA.isChecked()) {
-                if (ansA.getText().equals(correct_answer[0])) {
-                    visited.add(currentLocation);
-                }
-            }
-            if (optB.isChecked()) {
-                if (ansB.getText().equals(correct_answer[0])) {
-                    visited.add(currentLocation);
-                }
-            }
-            if (optC.isChecked()) {
-                if (ansC.getText().equals(correct_answer[0])) {
-                    visited.add(currentLocation);
-                }
-            }
-            if (optD.isChecked()) {
-                if (ansD.getText().equals(correct_answer[0])) {
-                    visited.add(currentLocation);
-                }
-            }
         }
 
 
