@@ -13,19 +13,32 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.textclassifier.ConversationActions;
 import android.widget.Button;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONString;
+import org.json.JSONStringer;
 
 import java.util.List;
+import java.util.Random;
 
 /*import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
  */
-import com.android.volley;
+//import com.android.volley;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 
 public class MainGame extends AppCompatActivity {
 
@@ -35,6 +48,7 @@ public class MainGame extends AppCompatActivity {
     /*private ActionWords actions;
     private Action action;*/
     private ArrayList<Item> inventory = new ArrayList<>();
+    private RequestQueue mQueue;
 
 
     @Override
@@ -146,6 +160,7 @@ public class MainGame extends AppCompatActivity {
     }
 
 
+
     private boolean processAction() {
         setContentView(R.layout.room);
         Button north = findViewById(R.id.north);
@@ -153,15 +168,76 @@ public class MainGame extends AppCompatActivity {
         Button east = findViewById(R.id.east);
         Button west = findViewById(R.id.west);
         Button quit = findViewById(R.id.quitbutton);
+        boolean toReturn = false;
+        TextView question = findViewById(R.id.question);
+        Random rand = new Random();
+        TextView ansA = findViewById(R.id.answerA);
+        TextView ansB = findViewById(R.id.answerB);
+        TextView ansC = findViewById(R.id.answerC);
+        TextView ansD = findViewById(R.id.answerD);
 
-        quit.setOnClickListener(view -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+
+        quit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // need to do something
+            }
         });
+        mQueue = Volley.newRequestQueue(this);
+
         if (!visited.contains(currentLocation)) {
             String url = "https://opentdb.com/api.php?amount=15&category=18&difficulty=medium&type=multiple";
-            JsonArrayRequest request = new JsonArrayRequest(Request.method)
+            JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
+                    (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
 
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            try {
+                                JSONArray questions = response.getJSONArray(1);
+                                JSONObject oneQuestion = questions.getJSONObject(1);
+                                String q = oneQuestion.getString("question");
+                                String correct_answer = oneQuestion.getString("correct_answer");
+                                JSONArray ic = oneQuestion.getJSONArray("incorrect_answers");
+                                List<String> ics = new ArrayList<>();
+                                for (int i = 0; i < ic.length(); i++) {
+                                    ics.add(ic.getString(i));
+                                }
+                                question.setText(q);
+                                int i = rand.nextInt(4);
+                                switch (i) {
+                                    case 0: ansA.setText(correct_answer);
+                                            ansB.setText(ics.get(0));
+                                            ansC.setText(ics.get(1));
+                                            ansD.setText(ics.get(2));
+                                            break;
+                                    case 1: ansA.setText(ics.get(0));
+                                            ansB.setText(correct_answer);
+                                            ansC.setText(ics.get(1));
+                                            ansD.setText(ics.get(2));
+                                            break;
+                                    case 2: ansA.setText(ics.get(0));
+                                            ansB.setText(ics.get(1));
+                                            ansC.setText(correct_answer);
+                                            ansD.setText(ics.get(2));
+                                            break;
+                                    case 3: ansA.setText(ics.get(2));
+                                            ansB.setText(ics.get(0));
+                                            ansC.setText(ics.get(1));
+                                            ansD.setText(correct_answer);
+                                            break;
+                                }
+                            } catch (JSONException error) {
+                                //response
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // TODO: Handle error
+
+                        }
+                    });
         }
 
 
@@ -190,7 +266,7 @@ public class MainGame extends AppCompatActivity {
             goTo("east");
         });
 
-        return false;
+        return toReturn;
     }
 
     public void goTo(String direction) {
