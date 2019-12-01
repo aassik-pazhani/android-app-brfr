@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.finalproject">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -16,15 +18,31 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="http"
+                    android:host="www.escapetomp.com"
+                    android:pathPattern="/escape" />
+            </intent-filter>
         </activity>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
         <activity android:name=".MainGame">
+
         </activity>
         <activity android:name=".Room">
+
         </activity>
-        <activity android:name=".Inventory"></activity>
+        <activity android:name=".Inventory">
+
+        </activity>
     </application>
 
 </manifest>

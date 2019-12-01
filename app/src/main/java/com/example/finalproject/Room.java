@@ -34,6 +34,7 @@ public class Room extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.room);
+
         Location union, mainQuad, ugl, ike, lar, par, chemAnnex, church, altgeld, engHall, loomis, grainger, siebel, northQuad, ece;
 
         //creating the rooms
@@ -104,6 +105,7 @@ public class Room extends AppCompatActivity {
         ece.setExit("east", northQuad);
         currentLocation = union;
         gameplay();
+
 
     }
 
