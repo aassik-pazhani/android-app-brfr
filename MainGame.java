@@ -91,6 +91,19 @@ public class MainGame {
 		
 		//we start the room outside
 		currentLocation = union;
+		
+		//initial item in inventory, can add items to inventory by picking up items from rooms
+		inventory.add(new Item("I-Card"));
+		
+		//setting up items in rooms
+		union.setItem(new Item("piano"));
+		
+		chemAnnex.setItem(new Item("flask"));
+		chemAnnex.setItem(new Item("strong acid"));
+		
+		grainger.setItem(new Item("access code"));
+		
+		
 	}
 	
 	public void play() {
@@ -129,11 +142,14 @@ public class MainGame {
         	System.out.println();
             System.out.println("Your action words are: ");
         } else if (actionWord.equals("go")) {
-        	goTo(action);
+        	//going to siebel now is the winning condition
+        	wantToQuit = goTo(action);
         } else if (actionWord.equals("quit")) {
             wantToQuit = quit(action);
         } else if (actionWord.equals("inventory")) {
         	printInventory();
+        } else if (actionWord.equals("get")) {
+        	getItem(action);
         }
         return wantToQuit;
 	}
@@ -146,7 +162,7 @@ public class MainGame {
 		System.out.println("Inventory: " + currentInv);
 	}
 
-	public void goTo(Action action) {
+	public boolean goTo(Action action) {
 		String direction = action.getObject();
 		//Leaving current location to go to another location
 		Location nextLocation = currentLocation.getExit(direction);
@@ -155,8 +171,29 @@ public class MainGame {
 		} else {
 			currentLocation = nextLocation;
 			System.out.println(currentLocation.getDescription());
+			if (currentLocation == siebel && inventory.contains("access code")) {
+				System.out.println("You win!");
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void getItem(Action action) {
+		//the item will be the second word (action + object);
+		String item = action.getObject();
+		//Leaving current location to go to another location
+		Item newItem = currentLocation.getItem(item);
+		//if location method getItem returns null, it means item does not exist
+		if (newItem == null) {
+			System.out.println("That item does not exist!");
+		} else { //else, remove the item from the room and add it to your inventory.
+			currentLocation.removeItem(item);
+			inventory.add(newItem);
+			System.out.println("picked up: " + item);
 		}
 	}
+	
 	public boolean quit(Action action) {
 		return true;
 	}

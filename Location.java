@@ -23,12 +23,17 @@ public class Location {
 	}
 	
 	public String getExits() {
-		String exits = "Exits: ";
+		String returnOnExit = "Exits: ";
 		Set keys = roomExits.keySet();
+		//returns all possible exits from that room
 		for (Iterator iterator = keys.iterator(); iterator.hasNext(); ) {
-			exits = exits + iterator.next();
+			returnOnExit = returnOnExit + iterator.next();
 		}
-		return exits;
+		//returns all items in the room.
+		returnOnExit = "\n\nItems in the room: \n";
+		returnOnExit = returnOnExit + getLocationItems() + " ";
+		
+		return returnOnExit;
 	}
 	
 	public Location getExit(String direction) {
@@ -39,12 +44,32 @@ public class Location {
 		return getItem(index);
 	}
 	
+	public Item getItem(String itemName) {
+		for (int i = 0; i < items.size(); i++) {
+			if (items.get(i).getDescription().equals(itemName)) {
+				return items.get(i);
+			}
+		}
+		return null;
+	}
+	
 	public void setItem(Item newItem) {
 		items.add(newItem);
 	}
 	
-	public String getRoomItems() {
-		String output = " ";
-		
+	public void removeItem(String itemName) {
+		for (int i = 0; i < items.size(); i++) {
+			if (items.get(i).getDescription().equals(itemName)) {
+				items.remove(i);
+			}
+		}
+	}
+	
+	public String getLocationItems() {
+		String currentItems = "";
+		for (int i = 0; i < items.size(); i++) {
+			currentItems = currentItems + items.get(i).getDescription() + " ";
+		}
+		return currentItems;
 	}
 }
