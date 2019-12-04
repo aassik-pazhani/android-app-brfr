@@ -10,9 +10,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,17 +28,20 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Room extends AppCompatActivity {
 
+    List<Item> inventory = new ArrayList<>();
+
 
     private Location currentLocation;
     List<Location> visited = new ArrayList<>();
+    Location union, mainQuad, ugl, ike, lar, par, chemAnnex, church, altgeld, engHall, loomis, grainger, siebel, northQuad, ece;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.room);
+        setContentView(R.layout.room_new);
 
-        Location union, mainQuad, ugl, ike, lar, par, chemAnnex, church, altgeld, engHall, loomis, grainger, siebel, northQuad, ece;
 
         //creating the rooms
         union = new Location("inside the Illini Union. Students bustle about the tattered facility.");
@@ -104,6 +110,16 @@ public class Room extends AppCompatActivity {
 
         ece.setExit("east", northQuad);
         currentLocation = union;
+        //initial item in inventory, can add items to inventory by picking up items from rooms
+        inventory.add(new Item("I-Card"));
+
+        //setting up items in rooms
+        union.setItem(new Item("piano"));
+
+        chemAnnex.setItem(new Item("flask"));
+        chemAnnex.setItem(new Item("strong acid"));
+
+        grainger.setItem(new Item("access code"));
         gameplay();
 
 
@@ -115,6 +131,7 @@ public class Room extends AppCompatActivity {
             finished = processAction();
         }
     }
+    private int count = 0;
 
     public boolean processAction() {
         Button north = findViewById(R.id.north);
@@ -147,6 +164,14 @@ public class Room extends AppCompatActivity {
             finish();
             toReturn.set(true);
         });
+        north.setVisibility(View.VISIBLE);
+        south.setVisibility(View.VISIBLE);
+        east.setVisibility(View.VISIBLE);
+        west.setVisibility(View.VISIBLE);
+        optA.setChecked(false);
+        optB.setChecked(false);
+        optC.setChecked(false);
+        optD.setChecked(false);
 
         if (!currentLocation.getExits().contains("north")) {
             north.setVisibility(View.GONE);
@@ -160,16 +185,17 @@ public class Room extends AppCompatActivity {
         if (!currentLocation.getExits().contains("west")) {
             west.setVisibility(View.GONE);
         }
+        RequestQueue mQueue = Volley.newRequestQueue(this);
 
         if (!visited.contains(currentLocation)) {
             String url = "https://opentdb.com/api.php?amount=15&category=18&difficulty=medium&type=multiple";
-            JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
-                    (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                    (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                         @Override
-                        public void onResponse(JSONArray response) {
+                        public void onResponse(JSONObject response) {
                             try {
-                                JSONArray questions = response.getJSONArray(1);
+                                JSONArray questions = response.getJSONArray("results");
                                 JSONObject oneQuestion = questions.getJSONObject(1);
                                 String q = oneQuestion.getString("question");
                                 correct_answer[0] = oneQuestion.getString("correct_answer");
@@ -222,27 +248,50 @@ public class Room extends AppCompatActivity {
                                         goTo("west");
                                     });
                                 }
-                                if (optA.isChecked()) {
+                                /*if (optA.isChecked()) {
                                     if (ansA.getText().equals(correct_answer[0])) {
                                         visited.add(currentLocation);
                                     }
-                                }
-                                if (optB.isChecked()) {
-                                    if (ansB.getText().equals(correct_answer[0])) {
-                                        visited.add(currentLocation);
+                                }*/
+                                optA.setOnClickListener(view -> {
+                                    optA.setChecked(true);
+
+                                    if (optA.isChecked()) {
+                                        if (ansA.getText().equals(correct_answer[0])) {
+                                            visited.add(currentLocation);
+                                            processAction();
+                                        }
                                     }
-                                }
-                                if (optC.isChecked()) {
-                                    if (ansC.getText().equals(correct_answer[0])) {
-                                        visited.add(currentLocation);
+                                });
+                                optD.setOnClickListener(view -> {
+                                    optD.setChecked(true);
+
+                                    if (optD.isChecked()) {
+                                        if (ansD.getText().equals(correct_answer[0])) {
+                                            visited.add(currentLocation);
+                                            processAction();
+                                        }
                                     }
-                                }
-                                if (optD.isChecked()) {
-                                    if (ansD.getText().equals(correct_answer[0])) {
-                                        visited.add(currentLocation);
+                                });
+                                optB.setOnClickListener(view -> {
+                                    optB.setChecked(true);
+
+                                    if (optB.isChecked()) {
+                                        if (ansB.getText().equals(correct_answer[0])) {
+                                            visited.add(currentLocation);
+                                            processAction();
+                                        }
                                     }
-                                }
-                                processAction();
+                                });
+                                optC.setOnClickListener(view -> {
+                                    optC.setChecked(true);
+                                    if (optC.isChecked()) {
+                                        if (ansC.getText().equals(correct_answer[0])) {
+                                            visited.add(currentLocation);
+                                            processAction();
+                                        }
+                                    }
+                                });
                             } catch (JSONException error) {
                                 //response
                             }
@@ -255,6 +304,8 @@ public class Room extends AppCompatActivity {
 
                         }
                     });
+            mQueue.add(jsonObjectRequest);
+
         } else {
             question.setVisibility(View.GONE);
             optA.setVisibility(View.GONE);
@@ -278,6 +329,14 @@ public class Room extends AppCompatActivity {
                 goTo("east");
             });
         }
+        count++;
+        if (count == 6) {
+            return true;
+        }
+        if (currentLocation == siebel && inventory.contains("access code")) {
+            System.out.println("You win!");
+            return true;
+        }
         return toReturn.get();
     }
     public void goTo(String direction) {
@@ -290,6 +349,20 @@ public class Room extends AppCompatActivity {
             currentLocation = nextLocation;
             processAction();
             System.out.println(currentLocation.getDescription());
+        }
+    }
+    public void getItem(Action action) {
+        //the item will be the second word (action + object);
+        String item = action.getObject();
+        //Leaving current location to go to another location
+        Item newItem = currentLocation.getItem(item);
+        //if location method getItem returns null, it means item does not exist
+        if (newItem == null) {
+            System.out.println("That item does not exist!");
+        } else { //else, remove the item from the room and add it to your inventory.
+            //currentLocation.removeItem(item);
+            inventory.add(newItem);
+            System.out.println("picked up: " + item);
         }
     }
 }

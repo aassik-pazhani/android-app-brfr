@@ -22,8 +22,8 @@ public class MainGame extends AppCompatActivity {
         setContentView(R.layout.game_main);
         //prints instructions for the game
         Button go = findViewById(R.id.go);
-        Button quit = findViewById(R.id.quit);
-        Button inventoryButton = findViewById(R.id.inventory);
+        Button quit = findViewById(R.id.quitbutton);
+        Button inventoryButton = findViewById(R.id.inventorybutton);
         quit.setOnClickListener(view -> {
             finish();
         });
