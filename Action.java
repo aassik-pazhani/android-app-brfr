@@ -1,4 +1,4 @@
-//Assigns first word inputed in console as the action word.
+//Assigns first word inputed in cons ole as the action word.
 //Assigns the second word following the first as the object word.
 //if the user does not input a second word, the object is null.
 

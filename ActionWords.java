@@ -1,7 +1,7 @@
 public class ActionWords {
 	
 	private static final String actions[] = {
-			"go", "quit", "help", "inventory"
+			"go", "quit", "help", "inventory", "get", "drop"
 	};
 	
 	public ActionWords() {
