@@ -9,14 +9,21 @@ import java.util.Iterator;
 
 public class Location {
     private String description;
+    private int data;
     private HashMap<String, Location> roomExits;		//Like array, but stores "north" or "south" of a room as an exit.
 
     private List<Item> items = new ArrayList<>();
 
-    Location(String description) {
+    public int getData() {
+        return data;
+    }
+
+    Location(String description, int d) {
+        this.data = d;
         this.description = description;
         roomExits = new HashMap<>();
     }
+
 
     public void setExit(String direction, Location adjacent) {
         roomExits.put(direction, adjacent);
@@ -34,6 +41,7 @@ public class Location {
         }
         return exits;
     }
+
 
     public Location getExit(String direction) {
         return roomExits.get(direction);

@@ -24,4 +24,7 @@
     <string name="todo">TODO</string>
     <string name="back_to_game">Back to game</string>
     <string name="description">description</string>
+    <string name="life">TextView</string>
+    <string name="your_life_count_is">Your life count is</string>
+    <string name="your_life_count">Your life count is</string>
 </resources>
