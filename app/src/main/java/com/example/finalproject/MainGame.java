@@ -23,14 +23,10 @@ public class MainGame extends AppCompatActivity {
         //prints instructions for the game
         Button go = findViewById(R.id.go);
         Button quit = findViewById(R.id.quitbutton);
-        Button inventoryButton = findViewById(R.id.inventorybutton);
         quit.setOnClickListener(view -> {
             finish();
         });
-        inventoryButton.setOnClickListener(view -> {
-            Intent intent = new Intent(this, Inventory.class);
-            startActivity(intent);
-        });
+
         go.setOnClickListener(view -> {
             Intent intent = new Intent(this, Room.class);
             startActivity(intent);

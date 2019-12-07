@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content"
+    android:background="@drawable/down_por"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -68,24 +69,28 @@
             android:id="@+id/optionA"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/your_color"
             android:text="@string/a" />
 
         <RadioButton
             android:id="@+id/optionB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/your_color"
             android:text="@string/b" />
 
         <RadioButton
             android:id="@+id/optionC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/your_color"
             android:text="@string/c" />
 
         <RadioButton
             android:id="@+id/optionD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/your_color"
             android:text="@string/d" />
     </RadioGroup>
 
@@ -155,8 +160,8 @@
         android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginEnd="150dp"
+        android:layout_marginStart="170dp"
+        android:layout_marginEnd="100dp"
         android:layout_marginBottom="200dp"
         android:text="@string/description"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -173,16 +178,6 @@
         android:text="@string/quit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/inventorybutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="@string/inventory"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/life"

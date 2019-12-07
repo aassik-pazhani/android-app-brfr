@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -137,7 +138,7 @@ public class Room extends AppCompatActivity {
         }
     }
     private int count = 0;
-    private int lifecount = 100;
+    private int lifecount = 15;
 
     public boolean processAction() {
         TextView life = findViewById(R.id.life);
@@ -158,7 +159,6 @@ public class Room extends AppCompatActivity {
         RadioButton optC =findViewById(R.id.optionC);
         RadioButton optD =findViewById(R.id.optionD);
         final String[] correct_answer = new String[1];
-        Button inventory_butt = findViewById(R.id.inventorybutton);
         RadioGroup options = findViewById(R.id.options);
         TextView description = findViewById(R.id.description);
         question.setVisibility(View.VISIBLE);
@@ -170,6 +170,14 @@ public class Room extends AppCompatActivity {
         ansB.setVisibility(View.VISIBLE);
         ansC.setVisibility(View.VISIBLE);
         ansD.setVisibility(View.VISIBLE);
+        ansA.setTextColor(Color.WHITE);
+        ansB.setTextColor(Color.WHITE);
+        ansC.setTextColor(Color.WHITE);
+        ansD.setTextColor(Color.WHITE);
+        question.setTextColor(Color.WHITE);
+        life.setTextColor(Color.WHITE);
+        description.setTextColor(Color.WHITE);
+
         if (lifecount > 0) {
             String text = "Remaining life is " + lifecount + " number of unvisited locations " + (15 - visited.size());
             life.setText(text);
@@ -180,7 +188,7 @@ public class Room extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-        if (visited.size() >= 14 && currentLocation == siebel) {
+        if (visited.size() > 14 && currentLocation == siebel) {
             String text = "you win";
             life.setText(text);
             Intent intent = new Intent(this, MainActivity.class);
@@ -193,10 +201,6 @@ public class Room extends AppCompatActivity {
 
         options.clearCheck();
 
-        inventory_butt.setOnClickListener(view -> {
-            Intent intent = new Intent(this, Inventory.class);
-            startActivity(intent);
-        });
 
         quit.setOnClickListener(view ->  {
             Intent intent = new Intent(this, MainActivity.class);
