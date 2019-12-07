@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
+    android:background="@drawable/bg_image"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,23 +12,49 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-smallcaps"
-        android:text="@string/you_wake_up_with_a_headache_and_no_recollection_of_who_you_are_what_you_do_or_where_you_are"
+        android:text="@string/you_recently_forgot_to_do_mp_71"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/inst2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:bufferType="normal"
         android:fontFamily="sans-serif-smallcaps"
-        android:text="@string/you_ask_someone_where_you_are_and_they_respond_with_quot_you_re_in_the_union_quot"
+        android:text="@string/your_grade_has_dropped_to_an_f"
         android:textColorLink="#C20013"
         android:textSize="18sp"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="@+id/instruction1"
         app:layout_constraintTop_toBottomOf="@+id/instruction1" />
+
+    <TextView
+        android:id="@+id/inst3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/task_visit_all_the_locations_by_answering_trivia_questions"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inst2" />
+
+    <TextView
+        android:id="@+id/inst4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="128dp"
+        android:text="@string/for_every_incorrect_answer_you_lose_a_life_keep_it_above_0_or_you_lose"
+        app:layout_constraintStart_toStartOf="@id/inst3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/inst5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:text="@string/once_you_have_visited_all_the_rooms_make_your_way_to_siebel_and_you_win"
+        app:layout_constraintStart_toStartOf="@id/inst4"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/go"
@@ -43,36 +70,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/inst2"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/quitbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
+        android:layout_marginStart="216dp"
         android:layout_marginTop="150dp"
         android:layout_marginBottom="529dp"
         android:text="@string/quit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/go"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/inventorybutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="89dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="529dp"
-        android:text="@string/inventory"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.909"
-        app:layout_constraintStart_toEndOf="@+id/quitbutton"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/inst2"
         app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Room extends AppCompatActivity {
 
+    public static MediaPlayer mediaPlayer;
+
     List<Item> inventory = new ArrayList<>();
 
 
@@ -42,6 +45,8 @@ public class Room extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.room);
+
+        mediaPlayer = MediaPlayer.create(Room.this, R.raw.win);
 
 
         //creating the rooms
@@ -115,10 +120,9 @@ public class Room extends AppCompatActivity {
         inventory.add(new Item("I-Card"));
 
         //setting up items in rooms
-        union.setItem(new Item("piano"));
+        engHall.setItem(new Item("siebel key"));
 
-        chemAnnex.setItem(new Item("flask"));
-        chemAnnex.setItem(new Item("strong acid"));
+        ece.setItem(new Item("challen's usb drive"));
 
         grainger.setItem(new Item("access code"));
         gameplay();
@@ -133,7 +137,7 @@ public class Room extends AppCompatActivity {
         }
     }
     private int count = 0;
-    private int lifecount = 10;
+    private int lifecount = 100;
 
     public boolean processAction() {
         TextView life = findViewById(R.id.life);
@@ -167,7 +171,7 @@ public class Room extends AppCompatActivity {
         ansC.setVisibility(View.VISIBLE);
         ansD.setVisibility(View.VISIBLE);
         if (lifecount > 0) {
-            String text = "Remaining life is " + lifecount + " " + visited.size();
+            String text = "Remaining life is " + lifecount + " number of unvisited locations " + (15 - visited.size());
             life.setText(text);
         } else {
             String text = "You are dead";
@@ -176,13 +180,15 @@ public class Room extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-        if (visited.size() == 14 && currentLocation == siebel) {
+        if (visited.size() >= 14 && currentLocation == siebel) {
             String text = "you win";
             life.setText(text);
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
         }
+
+
 
 
         options.clearCheck();
@@ -297,6 +303,7 @@ public class Room extends AppCompatActivity {
                             if (optA.isChecked()) {
                                 if (ansA.getText().equals(correct_answer[0])) {
                                     visited.add(currentLocation.getData());
+                                    mediaPlayer.start();
                                     processAction();
                                 } else {
                                     lifecount--;
@@ -309,6 +316,7 @@ public class Room extends AppCompatActivity {
                             if (optD.isChecked()) {
                                 if (ansD.getText().equals(correct_answer[0])) {
                                     visited.add(currentLocation.getData());
+                                    mediaPlayer.start();
                                     processAction();
                                 } else {
                                     lifecount--;
@@ -321,6 +329,7 @@ public class Room extends AppCompatActivity {
                             if (optB.isChecked()) {
                                 if (ansB.getText().equals(correct_answer[0])) {
                                     visited.add(currentLocation.getData());
+                                    mediaPlayer.start();
                                     processAction();
                                 } else {
                                     lifecount--;
@@ -332,6 +341,7 @@ public class Room extends AppCompatActivity {
                             if (optC.isChecked()) {
                                 if (ansC.getText().equals(correct_answer[0])) {
                                     visited.add(currentLocation.getData());
+                                    mediaPlayer.start();
                                     processAction();
                                 } else {
                                     lifecount--;
@@ -380,7 +390,7 @@ public class Room extends AppCompatActivity {
         count++;
         System.out.println(count);
 
-        if ((currentLocation == siebel && visited.size() == 14) || count > 1) {
+        if ((currentLocation == siebel && visited.size() == 14)  || count > 1) {
             System.out.println("You win!");
             return true;
         }
