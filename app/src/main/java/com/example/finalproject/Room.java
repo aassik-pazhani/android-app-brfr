@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -177,6 +178,9 @@ public class Room extends AppCompatActivity {
         question.setTextColor(Color.WHITE);
         life.setTextColor(Color.WHITE);
         description.setTextColor(Color.WHITE);
+        MediaPlayer winning = MediaPlayer.create(Room.this,R.raw.winner_airhorn);
+        MediaPlayer losing = MediaPlayer.create(Room.this,R.raw.fail);
+
 
         if (lifecount > 0) {
             String text = "Remaining life is " + lifecount + " number of unvisited locations " + (15 - visited.size());
@@ -184,16 +188,70 @@ public class Room extends AppCompatActivity {
         } else {
             String text = "You are dead";
             life.setText(text);
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            losing.start();
+            description.setVisibility(View.GONE);
+            north.setVisibility(View.GONE);
+            east.setVisibility(View.GONE);
+            south.setVisibility(View.GONE);
+            west.setVisibility(View.GONE);
+            question.setVisibility(View.GONE);
+            optA.setVisibility(View.GONE);
+            optB.setVisibility(View.GONE);
+            optC.setVisibility(View.GONE);
+            optD.setVisibility(View.GONE);
+            ansA.setVisibility(View.GONE);
+            ansB.setVisibility(View.GONE);
+            ansC.setVisibility(View.GONE);
+            ansD.setVisibility(View.GONE);
+            Handler mHandler = new Handler();
+            mHandler.postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    //start your activity here
+                    Intent intent = new Intent(Room.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+            }, 4500L);
+            mediaPlayer.release();
+            return true;
         }
         if (visited.size() > 14 && currentLocation == siebel) {
             String text = "you win";
             life.setText(text);
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            winning.start();
+            description.setVisibility(View.GONE);
+            north.setVisibility(View.GONE);
+            east.setVisibility(View.GONE);
+            south.setVisibility(View.GONE);
+            west.setVisibility(View.GONE);
+            question.setVisibility(View.GONE);
+            optA.setVisibility(View.GONE);
+            optB.setVisibility(View.GONE);
+            optC.setVisibility(View.GONE);
+            optD.setVisibility(View.GONE);
+            ansA.setVisibility(View.GONE);
+            ansB.setVisibility(View.GONE);
+            ansC.setVisibility(View.GONE);
+            ansD.setVisibility(View.GONE);
+
+            Handler mHandler = new Handler();
+            mHandler.postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    //start your activity here
+                    Intent intent = new Intent(Room.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+            }, 8000L);
+            mediaPlayer.release();
+            return true;
+
         }
 
 
@@ -256,7 +314,7 @@ public class Room extends AppCompatActivity {
                         }
                         question.setText(q);
                         int i = rand.nextInt(4);
-                        switch (i) {
+                        switch (0) {
                             case 0:
                                 ansA.setText(correct_answer[0]);
                                 ansB.setText(ics.get(0));

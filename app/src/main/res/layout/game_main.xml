@@ -14,6 +14,7 @@
         android:fontFamily="sans-serif-smallcaps"
         android:text="@string/you_recently_forgot_to_do_mp_71"
         android:visibility="visible"
+        android:textColor="@color/maroon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,6 +28,7 @@
         android:textColorLink="#C20013"
         android:textSize="18sp"
         android:visibility="visible"
+        android:textColor="@color/maroon"
         app:layout_constraintStart_toStartOf="@+id/instruction1"
         app:layout_constraintTop_toBottomOf="@+id/instruction1" />
 
@@ -34,6 +36,7 @@
         android:id="@+id/inst3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/maroon"
         android:text="@string/task_visit_all_the_locations_by_answering_trivia_questions"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inst2" />
@@ -44,6 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="128dp"
         android:text="@string/for_every_incorrect_answer_you_lose_a_life_keep_it_above_0_or_you_lose"
+        android:textColor="@color/maroon"
         app:layout_constraintStart_toStartOf="@id/inst3"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,6 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
         android:text="@string/once_you_have_visited_all_the_rooms_make_your_way_to_siebel_and_you_win"
+        android:textColor="@color/maroon"
         app:layout_constraintStart_toStartOf="@id/inst4"
         app:layout_constraintTop_toTopOf="parent" />
 
