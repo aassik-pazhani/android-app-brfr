@@ -17,7 +17,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
+//import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -178,7 +178,7 @@ public class Room extends AppCompatActivity {
         question.setTextColor(Color.WHITE);
         life.setTextColor(Color.WHITE);
         description.setTextColor(Color.WHITE);
-        MediaPlayer winning = MediaPlayer.create(Room.this,R.raw.winner_airhorn);
+        MediaPlayer winning = MediaPlayer.create(Room.this,R.raw.winner);
         MediaPlayer losing = MediaPlayer.create(Room.this,R.raw.fail);
 
 
@@ -220,6 +220,7 @@ public class Room extends AppCompatActivity {
         }
         if (visited.size() > 14 && currentLocation == siebel) {
             String text = "you win";
+            life.setTextColor(Color.WHITE);
             life.setText(text);
             winning.start();
             description.setVisibility(View.GONE);
@@ -248,7 +249,7 @@ public class Room extends AppCompatActivity {
                     finish();
                 }
 
-            }, 8000L);
+            }, 7000L);
             mediaPlayer.release();
             return true;
 
@@ -482,7 +483,7 @@ public class Room extends AppCompatActivity {
         processAction();
 
     }
-    public void getItem(Action action) {
+    /*public void getItem(Action action) {
         //the item will be the second word (action + object);
         String item = action.getObject();
         //Leaving current location to go to another location
@@ -495,5 +496,5 @@ public class Room extends AppCompatActivity {
             inventory.add(newItem);
             System.out.println("picked up: " + item);
         }
-    }
+    }*/
 }
