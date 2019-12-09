@@ -331,7 +331,7 @@ public class Room extends AppCompatActivity {
                         }
                         question.setText(q);
                         int i = rand.nextInt(4);
-                        switch (i) {
+                        switch (0) {
                             case 0:
                                 ansA.setText(correct_answer[0]);
                                 ansB.setText(ics.get(0));
