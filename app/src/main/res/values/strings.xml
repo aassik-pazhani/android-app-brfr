@@ -33,4 +33,6 @@
     <string name="for_every_incorrect_answer_you_lose_a_life_keep_it_above_0_or_you_lose">For every incorrect answer, you lose a life. Keep it above 0 or you lose!</string>
     <string name="task_visit_all_the_locations_by_answering_trivia_questions">Task: Visit all the locations by answering trivia questions.</string>
     <string name="once_you_have_visited_all_the_rooms_make_your_way_to_siebel_and_you_win">Once you have visited all the rooms, make your way to Siebel and you win.</string>
+    <string name="riddle_challen_ger">Riddle \'CHALLEN\'ger</string>
+    <string name="challen_ging_riddles">\'CHALLEN\'ging Riddles</string>
 </resources>
