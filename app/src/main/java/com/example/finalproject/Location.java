@@ -30,7 +30,7 @@ public class Location {
     }
 
     public String getDescription() {
-        return "You are " + description + getExits();
+        return "You are " + description;
     }
 
     public String getExits() {

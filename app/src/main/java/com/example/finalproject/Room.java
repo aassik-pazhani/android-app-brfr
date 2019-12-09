@@ -306,11 +306,27 @@ public class Room extends AppCompatActivity {
                         JSONArray questions = response.getJSONArray("results");
                         JSONObject oneQuestion = questions.getJSONObject(currentLocation.getData());
                         String q = oneQuestion.getString("question");
+                        q = q.replaceAll("&amp;", "&");
+                        q = q.replaceAll("&lt;", "<");
+                        q = q.replaceAll("&gt;", ">");
+                        q = q.replaceAll("&quot;", "\"");
+                        q = q.replaceAll("&#039;", "\'");
                         correct_answer[0] = oneQuestion.getString("correct_answer");
+                        correct_answer[0] = correct_answer[0].replaceAll("&amp;", "&");
+                        correct_answer[0] = correct_answer[0].replaceAll("&lt;", "<");
+                        correct_answer[0] = correct_answer[0].replaceAll("&gt;", ">");
+                        correct_answer[0] = correct_answer[0].replaceAll("&quot;", "\"");
+                        correct_answer[0] = correct_answer[0].replaceAll("&#039;", "\'");
                         JSONArray ic = oneQuestion.getJSONArray("incorrect_answers");
                         List<String> ics = new ArrayList<>();
                         for (int i = 0; i < ic.length(); i++) {
-                            ics.add(ic.getString(i));
+                            String temp = ic.getString(i);
+                            temp = temp.replaceAll("&amp;", "&");
+                            temp = temp.replaceAll("&lt;", "<");
+                            temp = temp.replaceAll("&gt;", ">");
+                            temp = temp.replaceAll("&quot;", "\"");
+                            temp = temp.replaceAll("&#039;", "\'");
+                            ics.add(temp);
                         }
                         question.setText(q);
                         int i = rand.nextInt(4);
@@ -419,7 +435,7 @@ public class Room extends AppCompatActivity {
 
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            System.out.println("Oh No");
+                            error.getStackTrace();
 
                         }
                     });
